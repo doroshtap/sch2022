@@ -15,7 +15,6 @@ class Transaction {
 
 // Individual block on the chain
 class Block {
-
   public nonce = Math.round(Math.random() * 999999999);
 
   constructor(
@@ -37,21 +36,17 @@ class Block {
 class Chain {
   // Singleton instance
   public static instance = new Chain();
-
   chain: Block[];
-
   constructor() {
     this.chain = [
       // Genesis block
       new Block('', new Transaction(100, 'genesis', 'satoshi'))
     ];
   }
-
   // Most recent block
   get lastBlock() {
     return this.chain[this.chain.length - 1];
   }
-
   // Proof of work system
   mine(nonce: number) {
     let solution = 1;
@@ -72,7 +67,6 @@ class Chain {
       solution += 1;
     }
   }
-
   // Add a new block to the chain if valid signature & proof of work is complete
   addBlock(transaction: Transaction, senderPublicKey: string, signature: Buffer) {
     const verify = crypto.createVerify('SHA256');
@@ -86,7 +80,6 @@ class Chain {
       this.chain.push(newBlock);
     }
   }
-
 }
 
 // Wallet gives a user a public/private keypair
